@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <script>
+    //landotime!
+    // Notice that the javascript is being compiled in real time to support any interactions.
+    // Notice that both the javascript function and html elements are dynamically generated
+    // Notice that this doesn't use anything else besides vanilla JS.
+    // No web pack, no react, no state, just blazingly fast, stable, embedded front ends.
+    {% for object in object_list %}
+
+
+    function increasePrice_{{object.pk}}() {
+
+      document.getElementById("product_{{object.pk}}").innerHTML = parseInt(document.getElementById("product_{{object.pk}}").innerHTML) + 2;
+
+    }
+    {% endfor %}
+
+
+  </script>
+</head>
+
+<body>
+  <a href="/"> Go to products </a> <br>
+
+
+  Create a product <br>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {{ form }}
+    <input type="submit" value="save">
+  </form>
+
+
+
+  <div class="row">
+    {% for object in object_list %}
+
+    <div class="col-md-2" style="border:2px black solid; height:200px">
+
+
+      Price: <div  id="product_{{object.pk}}"> {{ object.price }}</div>
+      <button onclick="increasePrice_{{object.pk}}()">Click me</button>
+    </div>
+    {% endfor %}
+  </div>
+</body>
